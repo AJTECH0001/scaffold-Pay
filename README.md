@@ -27,11 +27,6 @@ yarn start
 
 Visit your app on: `http://localhost:3000`. 
 
-## Documentation
-
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
-
-To know more about its features, check out our [website](https://scaffoldeth.io).
 
 ## Contributing to Scaffold-ETH 2
 
