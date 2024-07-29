@@ -12,15 +12,29 @@ import { NextPage } from "next";
 
 const Dapp: NextPage = () => {
   return (
-    <div className=" m-10 ">
-      <div className="">
+    <div>
+      <div>
         <ContractAddress />
-        <AddBill />
-        <Deposit />
-        <BillPayment />
-        <RenounceOwnership />
-        <TransferOwnership />
-        <Withdraw />
+      </div>
+      <div className="grid grid-cols-2 gap-6 m-10">
+        <div>
+          <AddBill />
+        </div>
+        <div>
+          <Deposit />
+        </div>
+        <div>
+          <BillPayment />
+        </div>
+        <div>
+          <RenounceOwnership />
+        </div>
+        <div>
+          <TransferOwnership />
+        </div>
+        <div>
+          <Withdraw />
+        </div>
       </div>
     </div>
   );

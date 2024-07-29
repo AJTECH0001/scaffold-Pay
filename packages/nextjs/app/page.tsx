@@ -7,32 +7,29 @@ const Home: NextPage = () => {
   return (
     <>
       <section className="mb-40">
-        <div
-          className="relative overflow-hidden bg-cover bg-no-repeat"
-          style={{
-            backgroundPosition: "50%",
-            backgroundImage: "url('https://mdbcdn.b-cdn.net/img/new/slides/146.webp')",
-            height: "500px",
-          }}
-        >
-          <div className="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-[hsla(0,0%,0%,0.75)] bg-fixed">
-            <div className="flex h-full items-center justify-center">
-              <div className="px-6 text-center text-white md:px-12">
-                <h1 className="mt-3 mb-16 text-4xl font-bold tracking-tight md:text-6xl xl:text-7xl">
-                  Crypto Savings & Bills Management Simplified
-                </h1>
-                <Link href={"/dapp"}>
-                  <button
-                    type="button"
-                    className="rounded border-2 border-neutral-50 px-[46px] pt-[14px] pb-[12px] text-sm font-medium uppercase leading-normal text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100  hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200"
-                    data-te-ripple-init
-                    data-te-ripple-color="light"
-                  >
-                    Get Started
-                  </button>
-                </Link>
-              </div>
-            </div>
+        <div className="pd:pb-[90px] mx-auto flex max-w-screen-xl flex-col-reverse items-center justify-between gap-4 px-3 pb-10 pt-[80px] md:flex-row lg:gap-[72px] lg:px-0 lg:pt-[108px]">
+          <div className="mt-10 flex flex-col items-start gap-6 md:mt-0">
+            <h5 className="font-poppins text-[22px] font-medium tracking-[0.44px] text-para text-secondary">
+              A Different Way to Keep Your Assets Safe
+            </h5>
+            <h1 className="font-poppins text-4xl font-bold text-[#031432] md:text-5xl md:leading-[120%]">
+              Decentralized revolution!
+            </h1>
+            <p className="max-w-[452px] text-para">
+              Embark on the decentralized revolution! Connect your wallet to get started
+            </p>
+            <Link href={"/dapp"}>
+              <button
+                type="button"
+                className="bg-white text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 rounded-md border border-gray-300 px-4 py-2 text-sm font-medium transition-colors duration-300 ease-in-out"
+              >
+                Get Started
+              </button>
+            </Link>
+          </div>
+
+          <div className="max-h-[800px] max-w-[778px] mr-20 ">
+            <img className="custom-animate size-full object-contain" src="/save1.png" alt="scaffold-pay" />
           </div>
         </div>
       </section>
