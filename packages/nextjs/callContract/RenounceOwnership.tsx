@@ -29,7 +29,7 @@ export function RenounceOwnership() {
       <button
         onClick={handleRenounceOwnership}
         type="submit"
-        className="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="bg-blue-500  px-6 py-2 rounded-full text-white text-sm lg:h-16 lg:text-base font-bold gap-x-6"
       >
         Renounce Ownership
       </button>
