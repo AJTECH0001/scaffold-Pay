@@ -8,7 +8,6 @@ import Hero from "~~/components/hero/Hero";
 import Calculate from "~~/components/sections/Calculate";
 import Features from "~~/components/sections/Features";
 import Footer from "~~/components/sections/Footer";
-import NewsLetter from "~~/components/sections/NewsLetter";
 
 const Home: NextPage = () => {
   return (
@@ -18,7 +17,6 @@ const Home: NextPage = () => {
       <Why />
       <Calculate />
       <Features />
-      <NewsLetter />
       <Footer />
     </>
   );
