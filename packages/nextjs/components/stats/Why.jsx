@@ -1,5 +1,6 @@
 import React from "react";
-import Image from 'next/image'
+import Image from "next/image";
+
 
 const Why = () => {
   return (
@@ -12,7 +13,7 @@ const Why = () => {
             data-aos="fade-right"
             data-aos-offset="400"
           >
-            <img src="why-img.png" />
+            <img src="/why-img.png" />
           </div>
           {/* text */}
           <div
