@@ -1,6 +1,6 @@
 import React from "react";
 //icon
-import { HiChartBar, HiGlobe, HiUser } from "react-icons/hi";
+import { HiChartBar, HiUser, HiGlobe } from "react-icons/hi";
 
 const Stats = () => {
   return (
@@ -15,7 +15,9 @@ const Stats = () => {
             </div>
             {/* item text */}
             <div>
-              <div className="text-2xl font-bold lg:text-[40px] lg:mb-2">$30B</div>
+              <div className="text-2xl font-bold lg:text-[40px] lg:mb-2">
+                $30B
+              </div>
               <div>Digital Currency Exchanged</div>
             </div>
           </div>
@@ -27,7 +29,9 @@ const Stats = () => {
             </div>
             {/* item text */}
             <div>
-              <div className="text-2xl font-bold lg:text-[40px] lg:mb-2">$10M+</div>
+              <div className="text-2xl font-bold lg:text-[40px] lg:mb-2">
+                $10M+
+              </div>
               <div>Trusted Wallets Investor</div>
             </div>
           </div>
@@ -39,7 +43,9 @@ const Stats = () => {
             </div>
             {/* item text */}
             <div>
-              <div className="text-2xl font-bold lg:text-[40px] lg:mb-2">195</div>
+              <div className="text-2xl font-bold lg:text-[40px] lg:mb-2">
+                195
+              </div>
               <div>Countries Supported</div>
             </div>
           </div>
