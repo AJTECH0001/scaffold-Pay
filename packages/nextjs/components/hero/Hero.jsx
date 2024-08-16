@@ -1,5 +1,6 @@
 import React from "react";
 import Image from 'next/image'
+import Link from 'next/link';
 // import icons
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 
@@ -42,10 +43,15 @@ const Hero = () => {
             data-aos="fade-down"
             data-aos-delay="700"
           >
-            <div className="flex items-center justify-betweeen gap-2">
+             <Link href={'/dapp'}>
+             <button className="flex items-center justify-betweeen gap-2">
               GET STARTED
               <IoIosArrowDroprightCircle className="text-2xl lg:text-3xl" />
-            </div>
+            </button>
+             </Link>
+           
+            
+           
           </button>
         </div>
         {/* Hero image flex-col2nd element */}
