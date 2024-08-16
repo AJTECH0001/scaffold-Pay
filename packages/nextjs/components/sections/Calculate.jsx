@@ -5,7 +5,7 @@ import CalcForm from "./CalcForm";
 const Calculate = () => {
   return (
     <section className="section">
-      <div className="container mx-auto">
+      <div className="container mt-10 mx-auto">
         {/* text */}
         <div className="text-center">
           <h2
