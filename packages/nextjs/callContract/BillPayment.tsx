@@ -13,7 +13,7 @@ const BillPayment = () => {
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const [errorMessage, setErrorMessage] = useState(""); // State to track any errors
 
-  const { data, error } = useSimulateContract({
+  const { data } = useSimulateContract({
     address: "0x3d1e462b8b6e4A33f27B521b255D967aFCB8b5c2",
     abi: dimeAbi,
     args: [formData.billId],
@@ -22,20 +22,34 @@ const BillPayment = () => {
 
   const { writeContractAsync } = useWriteContract();
 
-  const handleAddBill = async () => {
+  const validateInput = () => {
+    if (!formData.billId) {
+      setErrorMessage("Bill ID is required.");
+      return false;
+    }
+    if (!/^0x[a-fA-F0-9]{64}$/.test(formData.billId)) {
+      setErrorMessage("Please enter a valid Bill ID (64 character hex).");
+      return false;
+    }
+    return true;
+  };
+
+  const handlePayBill = async () => {
+    setErrorMessage(""); // Clear any previous errors before starting
+    if (!validateInput()) return; // Validate input before proceeding
+
     try {
       if (data && data.request) {
         const response = await writeContractAsync(data.request);
         console.log("Pay Bill response:", response);
         setShowModal(false); // Close the modal on successful transaction
-        setErrorMessage(""); // Clear any previous error messages
       } else {
-        throw new Error("Invalid contract data."); // Throw an error if data is invalid
+        throw new Error("Invalid contract data."); // Throw an error if contract data is invalid
       }
     } catch (error) {
       console.error("Error paying bill:", error);
 
-      // Type narrowing for the error
+      // Type narrowing for error handling
       if (error instanceof Error) {
         setErrorMessage(error.message);
       } else {
@@ -74,7 +88,7 @@ const BillPayment = () => {
             {errorMessage && <div className="text-red-500 text-sm mb-4">{errorMessage}</div>}
 
             <button
-              onClick={handleAddBill}
+              onClick={handlePayBill}
               type="submit"
               className="bg-blue-500 px-6 py-2 rounded-full text-white text-sm lg:h-16 lg:text-base font-bold gap-x-6"
             >

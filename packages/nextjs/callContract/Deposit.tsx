@@ -9,8 +9,8 @@ export function Deposit() {
   const [formData, setFormData] = useState({
     deposit: "",
   });
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Control modal visibility
+  const [errorMessage, setErrorMessage] = useState(""); // Track input errors
 
   console.log(formData);
 
@@ -23,17 +23,38 @@ export function Deposit() {
 
   const { writeContractAsync } = useWriteContract();
 
+  // Validate deposit input
+  const validateDeposit = (amount: string) => {
+    const parsedAmount = parseFloat(amount);
+    if (!amount) {
+      setErrorMessage("Deposit amount is required.");
+      return false;
+    }
+    if (isNaN(parsedAmount) || parsedAmount <= 0) {
+      setErrorMessage("Please enter a valid address.");
+      return false;
+    }
+    return true;
+  };
+
   const handleDeposit = async () => {
+    setErrorMessage(""); // Clear any previous errors
+
+    // Validate the input
+    if (!validateDeposit(formData.deposit)) return;
+
     try {
       if (data && data.request) {
         const response = await writeContractAsync(data.request);
         console.log("Deposit response:", response);
         setIsModalOpen(false); // Close modal after successful deposit
+        setErrorMessage(""); // Clear error on successful transaction
       } else {
-        console.error("Invalid contract data:", data);
+        throw new Error("Invalid contract data.");
       }
     } catch (error) {
       console.error("Error depositing:", error);
+      setErrorMessage("An error occurred during the transaction.");
     }
   };
 
@@ -54,11 +75,15 @@ export function Deposit() {
             className="shadow-sm px-4 py-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             required
             placeholder="Amount"
+            value={formData.deposit}
             onChange={event => {
               setFormData(prev => ({ ...prev, deposit: event.target.value }));
             }}
           />
         </div>
+
+        {/* Display error message if there's an issue */}
+        {errorMessage && <div className="text-red-500 text-sm mb-4">{errorMessage}</div>}
 
         <button
           onClick={handleDeposit}

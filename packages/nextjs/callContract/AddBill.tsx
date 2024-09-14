@@ -13,6 +13,12 @@ export function AddBill() {
     lockDuration: "",
   });
 
+  const [errors, setErrors] = useState({
+    address: "",
+    amount: "",
+    lockDuration: "",
+  });
+
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
   const { data, error } = useSimulateContract({
@@ -24,7 +30,37 @@ export function AddBill() {
 
   const { writeContractAsync } = useWriteContract();
 
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { address: "", amount: "", lockDuration: "" };
+
+    // Address validation (basic Ethereum-like address check)
+    if (!/^0x[a-fA-F0-9]{40}$/.test(formData.address)) {
+      newErrors.address = "Please enter a valid address.";
+      isValid = false;
+    }
+
+    // Amount validation (must be a number and greater than 0)
+    const amount = parseFloat(formData.amount);
+    if (isNaN(amount) || amount <= 0) {
+      newErrors.amount = "Please enter a valid amount greater than 0.";
+      isValid = false;
+    }
+
+    // Lock duration validation (must be an integer and greater than 0)
+    const lockDuration = parseInt(formData.lockDuration);
+    if (isNaN(lockDuration) || lockDuration <= 0) {
+      newErrors.lockDuration = "Please enter a valid lock duration in seconds.";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const handleAddBill = async () => {
+    if (!validateForm()) return; // Stop if validation fails
+
     try {
       if (data && data.request) {
         const response = await writeContractAsync(data.request);
@@ -62,11 +98,11 @@ export function AddBill() {
                   setFormData(prev => ({ ...prev, address: event.target.value }));
                 }}
               />
+              {errors.address && <p className="text-red-500 text-sm">{errors.address}</p>}
             </div>
 
             <div className="mb-5">
               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter amount</label>
-
               <input
                 type="text"
                 className="shadow-sm bg-gray-50 px-4 py-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
@@ -76,21 +112,23 @@ export function AddBill() {
                   setFormData(prev => ({ ...prev, amount: event.target.value }));
                 }}
               />
+              {errors.amount && <p className="text-red-500 text-sm">{errors.amount}</p>}
             </div>
 
             <div className="mb-5">
               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lock duration</label>
-
               <input
                 type="text"
                 className="shadow-sm px-4 py-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                placeholder="Lock Duration"
+                placeholder="Lock Duration (seconds)"
                 required
                 onChange={event => {
                   setFormData(prev => ({ ...prev, lockDuration: event.target.value }));
                 }}
               />
+              {errors.lockDuration && <p className="text-red-500 text-sm">{errors.lockDuration}</p>}
             </div>
+
             <button
               onClick={handleAddBill}
               type="submit"

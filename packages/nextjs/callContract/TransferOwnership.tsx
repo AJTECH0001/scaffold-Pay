@@ -7,6 +7,11 @@ import { useSimulateContract, useWriteContract } from "wagmi";
 
 const contractAddress = "0x3d1e462b8b6e4A33f27B521b255D967aFCB8b5c2";
 
+// Ethereum address validation using regex
+const isValidEthereumAddress = (address: string) => {
+  return /^0x[a-fA-F0-9]{40}$/.test(address);
+};
+
 export function TransferOwnership() {
   const [formData, setFormData] = useState({
     address: "",
@@ -24,7 +29,26 @@ export function TransferOwnership() {
 
   const { writeContractAsync } = useWriteContract();
 
+  // Function to validate Ethereum address
+  const validateAddress = (address: string) => {
+    if (!address) {
+      setErrorMessage("Address is required.");
+      return false;
+    }
+    if (!isValidEthereumAddress(address)) {
+      setErrorMessage("Invalid Ethereum address.");
+      return false;
+    }
+    return true;
+  };
+
   const handleTransferOwnership = async () => {
+    // Clear previous errors
+    setErrorMessage("");
+
+    // Validate the input before proceeding
+    if (!validateAddress(formData.address)) return;
+
     try {
       if (data && data.request) {
         const response = await writeContractAsync(data.request);
@@ -64,8 +88,8 @@ export function TransferOwnership() {
               <input
                 type="text"
                 className="shadow-sm px-4 py-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                placeholder="Address"
-                required
+                placeholder="Enter Ethereum Address"
+                value={formData.address}
                 onChange={event => {
                   setFormData(prev => ({ ...prev, address: event.target.value }));
                 }}
